@@ -1,0 +1,17 @@
+CREATE TABLE Products (
+
+	ID			SERIAL 	PRIMARY KEY	NOT NULL,
+	Description 		CHAR(50)		NOT NULL, 
+	ItemLookupCode 		BIGINT			NOT NULL UNIQUE,
+	Price 			INT			NOT NULL,
+	ItemType 		INT			REFERENCES ItemTypes(ID),
+	Cost 			INT			CHECK(Cost > -1),
+	Quantity 		INT			CHECK(Quantity > -1),
+	ReorderPoint 		INT			CHECK(ReorderPoint > -1),	
+	RestockLevel 		INT			CHECK(RestockLevel > -1),
+	ParentItem 		BIGINT			REFERENCES Products(ItemLookupCode),
+	ExtendedDescription 	TEXT,
+	Inactive 		BOOLEAN			DEFAULT FALSE,
+	MSRP 			INT			CHECK(MSRP > -1),
+	DateCreated 		TIMESTAMP (0) 		DEFAULT NOW()
+)
