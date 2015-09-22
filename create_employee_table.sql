@@ -10,7 +10,7 @@ manager 	uuid 			references employee(id),
 password 	character varying(50) 	default (''),
 createdon 	timestamp 		without time zone not null default now(),
 constraint 	employee_pkey 		primary key (id),
-constraint 	classificationRange 	CHECK (classification IN ('gm', 'sm', 'cash')),
+constraint 	classificationRange 	CHECK (classification IN ('gm', 'sm', 'cash'))
 )
 WITH ( OIDS = FALSE );
 
