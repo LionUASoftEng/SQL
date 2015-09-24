@@ -1,17 +1,36 @@
-CREATE TABLE Products (
+-- Table: products
 
-	ID			SERIAL 	PRIMARY KEY	NOT NULL,
-	Description 		CHAR(50)		NOT NULL, 
-	ItemLookupCode 		BIGINT			NOT NULL UNIQUE,
-	Price 			INT			NOT NULL,
-	ItemType 		INT			REFERENCES ItemTypes(ID),
-	Cost 			INT			CHECK(Cost > -1),
-	Quantity 		INT			CHECK(Quantity > -1),
-	ReorderPoint 		INT			CHECK(ReorderPoint > -1),	
-	RestockLevel 		INT			CHECK(RestockLevel > -1),
-	ParentItem 		BIGINT			REFERENCES Products(ItemLookupCode),
-	ExtendedDescription 	TEXT,
-	Inactive 		BOOLEAN			DEFAULT FALSE,
-	MSRP 			INT			CHECK(MSRP > -1),
-	DateCreated 		TIMESTAMP (0) 		DEFAULT NOW()
+-- DROP TABLE products;
+
+CREATE TABLE products
+(
+  id uuid NOT NULL,
+  description character(50) NOT NULL,
+  itemlookupcode bigint NOT NULL,
+  price integer NOT NULL,
+  itemtype integer, -- 0 = Normal, 1 = Serialized, 2 = Matrix; others can be ignored
+  cost integer,
+  quantity integer,
+  reorderpoint integer,
+  restocklevel integer,
+  parentitem bigint,
+  extendeddescription text,
+  inactive boolean DEFAULT false,
+  msrp integer,
+  datecreated timestamp(0) without time zone DEFAULT now(),
+  CONSTRAINT products_pkey PRIMARY KEY (id),
+  CONSTRAINT products_parentitem_fkey FOREIGN KEY (parentitem)
+      REFERENCES products (itemlookupcode) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT products_itemlookupcode_key UNIQUE (itemlookupcode),
+  CONSTRAINT products_cost_check CHECK (cost > (-1)),
+  CONSTRAINT products_msrp_check CHECK (msrp > (-1)),
+  CONSTRAINT products_quantity_check CHECK (quantity > (-1)),
+  CONSTRAINT products_reorderpoint_check CHECK (reorderpoint > (-1)),
+  CONSTRAINT products_restocklevel_check CHECK (restocklevel > (-1))
 )
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE products
+  OWNER TO postgres; -- Change postgres to preferred owner_name.
