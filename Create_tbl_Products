@@ -1,36 +1,36 @@
--- Table: products
+-- Table: Products
 
--- DROP TABLE products;
+-- DROP TABLE Products;
 
-CREATE TABLE products
+CREATE TABLE Products
 (
   id uuid NOT NULL,
-  description character(50) NOT NULL,
-  itemlookupcode bigint NOT NULL,
-  price integer NOT NULL,
-  itemtype integer, -- 0 = Normal, 1 = Serialized, 2 = Matrix; others can be ignored
-  cost integer,
-  quantity integer,
-  reorderpoint integer,
-  restocklevel integer,
-  parentitem bigint,
-  extendeddescription text,
-  inactive boolean DEFAULT false,
-  msrp integer,
-  datecreated timestamp(0) without time zone DEFAULT now(),
+  Description character(50) NOT NULL,
+  ItemLookupCode bigint NOT NULL,
+  Price integer NOT NULL,
+  ItemType integer, -- 0 = Normal, 1 = Serialized, 2 = Matrix; others can be ignored
+  Cost integer,
+  Quantity integer,
+  ReorderPoint integer,
+  RestockLevel integer,
+  ParentItem bigint,
+  ExtendedDescription text,
+  Inactive boolean DEFAULT false,
+  MSRP integer,
+  DateCreated timestamp(0) without time zone DEFAULT now(),
   CONSTRAINT products_pkey PRIMARY KEY (id),
-  CONSTRAINT products_parentitem_fkey FOREIGN KEY (parentitem)
-      REFERENCES products (itemlookupcode) MATCH SIMPLE
+  CONSTRAINT products_parentitem_fkey FOREIGN KEY (ParentItem)
+      REFERENCES Products (ItemLookupCode) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT products_itemlookupcode_key UNIQUE (itemlookupcode),
-  CONSTRAINT products_cost_check CHECK (cost > (-1)),
-  CONSTRAINT products_msrp_check CHECK (msrp > (-1)),
-  CONSTRAINT products_quantity_check CHECK (quantity > (-1)),
-  CONSTRAINT products_reorderpoint_check CHECK (reorderpoint > (-1)),
-  CONSTRAINT products_restocklevel_check CHECK (restocklevel > (-1))
+  CONSTRAINT products_itemlookupcode_key UNIQUE (ItemLookupCode),
+  CONSTRAINT products_cost_check CHECK (Cost > (-1)),
+  CONSTRAINT products_msrp_check CHECK (MSRP > (-1)),
+  CONSTRAINT products_quantity_check CHECK (Quantity > (-1)),
+  CONSTRAINT products_reorderpoint_check CHECK (ReorderPoint > (-1)),
+  CONSTRAINT products_restocklevel_check CHECK (RestockLevel > (-1))
 )
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE products
+ALTER TABLE Products
   OWNER TO postgres; -- Change postgres to preferred owner_name.
