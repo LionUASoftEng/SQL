@@ -1,7 +1,0 @@
-﻿CREATE TABLE ItemTypes (
-
-	ID			SERIAL PRIMARY KEY	NOT NULL,
-	ItemType 		INT			NOT NULL UNIQUE,
-	ItemTypeDesc		TEXT			NOT NULL,
-	DateCreated 		TIMESTAMP(0)		NOT NULL DEFAULT NOW()
-)
