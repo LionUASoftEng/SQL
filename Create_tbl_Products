@@ -4,7 +4,7 @@
 
 CREATE TABLE Products
 (
-  id uuid NOT NULL,
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
   Description character(50) NOT NULL,
   ItemLookupCode bigint NOT NULL,
   Price integer NOT NULL,
