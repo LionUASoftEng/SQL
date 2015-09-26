@@ -1,6 +1,6 @@
 create table employee
 (
-id 		uuid 			not null,
+id 		uuid 			not null DEFAULT uuid_generate_v4(),
 firstname 	character varying(50) 	not null default ''::character varying,
 lastname 	character varying(50) 	not null default ''::character varying,
 employeeid 	int 			not null default ((0)),
