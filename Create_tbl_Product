@@ -1,0 +1,36 @@
+-- Table: Product
+
+-- DROP TABLE Product;
+
+CREATE TABLE Product
+(
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  Description character(50) NOT NULL,
+  ItemLookupCode bigint NOT NULL,
+  Price integer NOT NULL,
+  ItemType integer, -- 0 = Normal, 1 = Serialized, 2 = Matrix; others can be ignored
+  Cost integer,
+  Quantity integer,
+  ReorderPoint integer,
+  RestockLevel integer,
+  ParentItem uuid,
+  ExtendedDescription text,
+  Inactive boolean DEFAULT false,
+  MSRP integer,
+  DateCreated timestamp(0) without time zone DEFAULT now(),
+  CONSTRAINT product_pkey PRIMARY KEY (id),
+  CONSTRAINT product_parentitem_fkey FOREIGN KEY (ParentItem)
+      REFERENCES Product (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT product_itemlookupcode_key UNIQUE (ItemLookupCode),
+  CONSTRAINT product_cost_check CHECK (Cost > (-1)),
+  CONSTRAINT product_msrp_check CHECK (MSRP > (-1)),
+  CONSTRAINT product_quantity_check CHECK (Quantity > (-1)),
+  CONSTRAINT product_reorderpoint_check CHECK (ReorderPoint > (-1)),
+  CONSTRAINT product_restocklevel_check CHECK (RestockLevel > (-1))
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE Product
+  OWNER TO postgres; -- Change postgres to preferred owner_name.
