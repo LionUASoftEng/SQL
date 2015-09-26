@@ -1,0 +1,11 @@
+CREATE TABLE transactions
+(
+	id 		uuid 			not null DEFAULT uuid_generate_v4(),
+	cashierid 	uuid			not null references employees(id),
+	amount		int			not null,
+	transactiontype character(10) 		CHECK (transactiontype IN ('sale', 'return', 'void')),
+	parentid	uuid			references transactions(id),
+	transactiondate timestamp(0) without time zone DEFAULT now(),
+	CONSTRAINT transactions_pkey PRIMARY KEY (id)
+)
+WITH ( OIDS = FALSE );
