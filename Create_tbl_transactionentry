@@ -1,7 +1,7 @@
 CREATE TABLE transactionentry
 (	
 	id			uuid 	NOT NULL DEFAULT uuid_generate_v4(),
-	transactionid		uuid	NOT NULL references transactions(id),
+	transactionid		uuid	NOT NULL references transaction(id),
 	productid		uuid	NOT NULL references products(id),
 	price			int	NOT NULL CHECK (price > -1), 
 	quantity		int	NOT NULL CHECK (quantity > -1),
