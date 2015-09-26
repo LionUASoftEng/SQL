@@ -13,14 +13,14 @@ CREATE TABLE Products
   Quantity integer,
   ReorderPoint integer,
   RestockLevel integer,
-  ParentItem bigint,
+  ParentItem uuid,
   ExtendedDescription text,
   Inactive boolean DEFAULT false,
   MSRP integer,
   DateCreated timestamp(0) without time zone DEFAULT now(),
   CONSTRAINT products_pkey PRIMARY KEY (id),
   CONSTRAINT products_parentitem_fkey FOREIGN KEY (ParentItem)
-      REFERENCES Products (ItemLookupCode) MATCH SIMPLE
+      REFERENCES Products (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT products_itemlookupcode_key UNIQUE (ItemLookupCode),
   CONSTRAINT products_cost_check CHECK (Cost > (-1)),
