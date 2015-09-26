@@ -1,0 +1,10 @@
+CREATE TABLE tenderentry
+(	
+	id		uuid 		NOT NULL DEFAULT uuid_generate_v4(),
+	transactionid	uuid		NOT NULL references transactions(id),
+	tendertype	char(25)	NOT NULL 
+		CHECK (tendertype IN ('cash', 'gift', 'mastercard' , 'visa', 'discover', 'amex', 'debit')),
+	amount		int		NOT NULL,
+	tenderentrydate TIMESTAMP(0) without time zone DEFAULT now(),
+	CONSTRAINT tenderentry_pkey PRIMARY KEY (id)
+)
