@@ -6,7 +6,7 @@ CREATE TABLE Product
 (
   id uuid NOT NULL DEFAULT uuid_generate_v4(),
   Description character(50) NOT NULL,
-  ItemLookupCode bigint NOT NULL,
+  ItemLookupCode varying(20) NOT NULL,
   Price integer NOT NULL,
   ItemType integer, -- 0 = Normal, 1 = Serialized, 2 = Matrix; others can be ignored
   Cost integer,
