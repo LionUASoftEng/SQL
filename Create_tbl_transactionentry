@@ -3,7 +3,7 @@ CREATE TABLE transactionentry
 	recordid		uuid 	NOT NULL DEFAULT uuid_generate_v4(),
 	transactionid		uuid	NOT NULL references transaction(id),
 	productid		uuid	NOT NULL references product(id),
-	price			money	NOT NULL CHECK (price > -1), 
+	price			numeric(18,4)	NOT NULL CHECK (price > -1), 
 	quantity		int	NOT NULL CHECK (quantity > -1),
 	CONSTRAINT transactionentry_pkey PRIMARY KEY (id)
 )
