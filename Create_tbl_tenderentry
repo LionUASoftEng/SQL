@@ -4,7 +4,7 @@ CREATE TABLE tenderentry
 	transactionid	uuid		NOT NULL references transaction(id),
 	tendertype	char(25)	NOT NULL 
 		CHECK (tendertype IN ('cash', 'gift', 'mastercard' , 'visa', 'discover', 'amex', 'debit')),
-	amount		int		NOT NULL,
+	amount		numeric(18,4)	NOT NULL,
 	tenderentrydate TIMESTAMP(0) without time zone DEFAULT now(),
 	CONSTRAINT tenderentry_pkey PRIMARY KEY (id)
 )
