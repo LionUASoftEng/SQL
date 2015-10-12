@@ -2,7 +2,7 @@ CREATE TABLE transaction
 (
 	id 		uuid 			not null DEFAULT uuid_generate_v4(),
 	cashierid 	uuid			not null references employee(id),
-	amount		int			not null,
+	amount		numeric(18,4)		not null,
 	transactiontype character(10) 		CHECK (transactiontype IN ('sale', 'return', 'void')),
 	parentid	uuid			references transaction(id),
 	transactiondate timestamp(0) without time zone DEFAULT now(),
