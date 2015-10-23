@@ -7,3 +7,12 @@ CREATE TABLE transactionentry
 	quantity		int	NOT NULL CHECK (quantity > -1),
 	CONSTRAINT transactionentry_pkey PRIMARY KEY (id)
 )
+
+-- Index: idx_transactionentry_transactionid
+
+-- DROP INDEX idx_transactionentry_transactionid;
+
+CREATE INDEX idx_transactionentry_transactionid
+  ON transactionentry
+  USING btree
+  (transactionid);
