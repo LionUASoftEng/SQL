@@ -6,7 +6,7 @@ CREATE TABLE transactionentry
 	price			numeric(18,4)	NOT NULL CHECK (price > -0.9999), 
 	quantity		int	NOT NULL CHECK (quantity > -1),
 	CONSTRAINT transactionentry_pkey PRIMARY KEY (id)
-)
+);
 
 -- Index: idx_transactionentry_transactionid
 
